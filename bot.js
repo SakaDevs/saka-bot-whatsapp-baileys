@@ -256,4 +256,19 @@ async function connectToWhatsApp() {
   });
 }
 
+// Tambah di atas (install dulu express: npm install express)
+const express = require("express");
+const app = express();
+
+// Route utama (buat dicek uptime robot)
+app.get("/", (req, res) => {
+  res.send("Bot WhatsApp Hitori sedang berjalan 🚀");
+});
+
+// Jalankan server di port Replit
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Web server berjalan di port ${PORT}`);
+});
+
 connectToWhatsApp();
