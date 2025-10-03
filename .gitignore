@@ -1,0 +1,15 @@
+# Node modules
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Baileys session (jangan dishare ke publik!)
+/auth_info_baileys
+/*.session.json
+/*.store.json
+
+# Environment variables
+.env
+
+# System
+.DS_Store
