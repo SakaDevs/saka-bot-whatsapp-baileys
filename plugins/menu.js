@@ -1,48 +1,49 @@
-// File: plugins/menu.js
 const config = require("../config");
 
 module.exports = {
   name: "menu",
-  description: "Menampilkan semua menu perintah yang tersedia.",
-  run: async (sock, msg, args, commands) => {
-    const userCommands = [];
-    const adminCommands = [];
+  description: "Menampilkan semua menu perintah.",
+  run: async (sock, msg, args) => {
+    const botName = config.botName || "BOT";
+    const prefix = config.prefix;
 
-    commands.forEach((command) => {
-      // Hindari menampilkan menu itu sendiri di dalam daftar menu
-      if (command.name === "menu") return;
-
-      if (command.isAdmin) {
-        adminCommands.push(command);
-      } else {
-        userCommands.push(command);
-      }
-    });
-
-    userCommands.sort((a, b) => a.name.localeCompare(b.name));
-    adminCommands.sort((a, b) => a.name.localeCompare(b.name));
-
-    let menuText = `*╭───[ MENU ${config.botName.toUpperCase()}]───╮*\n`;
-    menuText += `*│* List Menu Command Bot        `;
-    menuText += `*│*\n`;
-
-    if (userCommands.length > 0) {
-      menuText += `*│* *Menu Pengguna*\n`;
-      userCommands.forEach((cmd) => {
-        menuText += `*│* ┠> *${config.prefix}${cmd.name}*\n`;
-      });
-      menuText += `*│*\n`;
-    }
-
-    if (adminCommands.length > 0) {
-      menuText += `*│* *Menu Admin*\n`;
-      adminCommands.forEach((cmd) => {
-        menuText += `*│* ┠> *${config.prefix}${cmd.name}*\n`;
-      });
-      menuText += `*│*\n`;
-    }
-
-    menuText += `*╰───[ Dibuat oleh ${config.ownerNumber.split("@")[0]} ]───╯*`;
+    const menuText = `*╭───[ 🤖 MENU ${botName.toUpperCase()} 🤖 ]───╮*
+*│*
+*│* 📥 *Menu Downloader*
+*│* ┠> *${prefix}ytmp3 <url>*
+*│* ┠> *${prefix}ytmp4 <url>* (Max 1 Menit)
+*│* ┠> *${prefix}tiktok <url>*
+*│* ┠> *${prefix}ttmp3 <url>*
+*│*
+*│* 🔎 *Menu Pencarian*
+*│* ┠> *${prefix}google <nama>*
+*│* ┠> *${prefix}ytsearch <nama>*
+*│* ┠> *${prefix}lirik <judul lagu>*
+*│*
+*│* 👥 *Menu Grup & Info*
+*│* ┠> *${prefix}myrank*
+*│* ┠> *${prefix}warn*
+*│* ┠> *${prefix}req <pesan>*
+*│* ┠> *${prefix}report @user <alasan>*
+*│*
+*│* ⚙️ *Utilitas Lainnya*
+*│* ┠> *${prefix}s* (Reply/caption gambar/video)
+*│* ┠> *${prefix}cuaca <kota>*
+*│* ┠> *${prefix}getid*
+*│* ┠> *${prefix}ping*
+*│*
+*│* 🛡️ *Menu Admin*
+*│* ┠> *${prefix}memberrank*
+*│* ┠> *${prefix}checkrank @user*
+*│* ┠> *${prefix}resetrank*
+*│* ┠> *${prefix}checkwarn @user*
+*│* ┠> *${prefix}hitamkan @user <alasan>*
+*│* ┠> *${prefix}putihkan @user*
+*│* ┠> *${prefix}mute @user <durasi>*
+*│* ┠> *${prefix}unmute @user*
+*│* ┠> *${prefix}kick @user*
+*│*
+*╰───[ Dibuat oleh ${config.ownerNumber.split("@")[0]} ]───╯*`;
 
     await sock.sendMessage(
       msg.key.remoteJid,
